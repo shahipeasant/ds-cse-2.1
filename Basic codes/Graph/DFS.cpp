@@ -35,16 +35,19 @@ int main() {
     vector<int> color(n + 1, 0);
     vector<int> order;
     int cycleCount = 0;
+    int disconnectedCount = 0;
 
     for (int i = 1; i <= n; i++) {
         if (color[i] == 0) {
             dfs(i, adj, color, order, cycleCount);
+            disconnectedCount++;
         }
     }
 
     cout << "DFS Visit Order: ";
     for (int u : order) cout << u << " ";
     cout << "\nNumber of cycles (back edges): " << cycleCount << "\n";
+    cout << "Number of diconnected components: " << disconnectedCount << endl;
 
     return 0;
 }
