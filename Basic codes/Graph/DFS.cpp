@@ -4,6 +4,7 @@ using namespace std;
 vector<vector<int>> adj;
 vector<int> color;
 vector<int> order;
+int cycleCount = 0;
 
 void dfs(int u) {
     color[u] = 1;
@@ -12,6 +13,9 @@ void dfs(int u) {
     for (int v : adj[u]) {
         if (color[v] == 0) {
             dfs(v);
+        }
+        else if(color[v] == 1 && color[u] == 1){
+            cycleCount++;
         }
     }
 
@@ -40,6 +44,7 @@ int main() {
     cout << "DFS Visit Order: ";
     for (int u : order) cout << u << " ";
     cout << "\n";
+    cout << "Number of cycles: " << cycleCount;
 
     return 0;
 }

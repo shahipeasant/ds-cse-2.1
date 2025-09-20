@@ -1,9 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void bfs(int source, vector<vector<int>>& adj, vector<int>& level, vector<int>& order) {
+void bfs(int source, vector<vector<int>>& adj, vector<int>& level, vector<int> &parent, vector<int>& order) {
     int n = adj.size() - 1;
     level.assign(n + 1, -1);
+    parent.assign(n + 1, -1);
     order.clear();
 
     queue<int> q;
@@ -19,6 +20,7 @@ void bfs(int source, vector<vector<int>>& adj, vector<int>& level, vector<int>& 
         for (int v : adj[u]) {
             if (level[v] == -1) {
                 level[v] = level[u] + 1;
+                parent[v] = u;
                 q.push(v);
             }
         }
@@ -42,8 +44,8 @@ int main() {
     cout << "Enter source: ";
     cin >> source;
 
-    vector<int> level, order;
-    bfs(source, adj, level, order);
+    vector<int> level, parent, order;
+    bfs(source, adj, level, parent, order);
 
     cout << "Visit order: ";
     for (int node : order) cout << node << " ";
